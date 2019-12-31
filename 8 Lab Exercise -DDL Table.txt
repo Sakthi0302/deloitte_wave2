@@ -1,0 +1,59 @@
+1)
+create table dept(id number(7)constraint pk primary key,name varchar2(25));
+
+2)
+insert into dept(id,name)
+select department_id,department_name
+from departments;
+
+3)
+create table emp(id number(7),last_name varchar2(25),first_name varchar2(25),dept_id number(7) ,foreign key(dept_id)
+references dept(id));
+
+4)
+create table employees2(id,first_name,last_name,salary,dept_id)
+as
+select employee_id,first_name,last_name,salary,department_id
+from employees;
+
+5)
+alter table employees2 read only;
+
+6)
+insert into employees2 values (34,'Grant','Marcie',5678,10);
+
+7)
+alter table employees2 read write;
+
+8)drop table employees2;
+
+9)
+create or replace view employees_vu
+as select employee_id,last_name as employee,department_id
+from employees;
+
+10)
+select * from employees_vu;
+
+11)
+select employee,department_id
+from employees_vu
+where department_id in
+(select department_id from departments
+where upper(department_name) ='HR');
+
+12)
+create or replace view dept50
+as select employee_id as empno,last_name as employee,department_id as deptno 
+from employees
+where department_id=50 with check option constraint dept_no_ck;
+
+13)
+desc dept50;
+select * from dept50;
+
+14)
+update dept50
+set deptno=80 where upper(employee) ='MATOS';
+
+
